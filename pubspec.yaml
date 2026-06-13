@@ -1,0 +1,30 @@
+name: flightwall_mobile
+description: "FlightWall Mobile - Premium flight tracking for enthusiasts"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+  http: ^1.2.2
+  provider: ^6.1.2
+  intl: ^0.19.0
+  # For future: mapbox_gl for real Mapbox, but requires setup and token
+  # three_dart or model_viewer_web for 3D aircraft model (advanced)
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    # Add plane images, 3D model placeholders here
