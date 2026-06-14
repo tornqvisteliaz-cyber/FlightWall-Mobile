@@ -22,31 +22,32 @@ class FlightWallApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FlightWall Mobile',
+      title: 'FlightWall',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF0A0E17), // Deep dark blue-black like avionics
+        scaffoldBackgroundColor: const Color(0xFF000000),
         colorScheme: const ColorScheme.dark(
-          primary: Color(0xFF00D4FF), // Cyan accent like modern avionics
-          secondary: Color(0xFFFF9500), // Orange for highlights (Tesla-like)
-          surface: Color(0xFF1A1F2E),
+          primary: Color(0xFF00FF9F),
+          secondary: Color(0xFFFF3366),
+          surface: Color(0xFF111111),
         ),
-        fontFamily: 'SF Pro Display', // Apple-like, or use system
+        fontFamily: 'monospace',
         textTheme: const TextTheme(
-          headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
-          headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-          bodyLarge: TextStyle(fontSize: 16, color: Colors.white70),
-          bodyMedium: TextStyle(fontSize: 14, color: Colors.white60),
+          headlineLarge: TextStyle(fontSize: 26, fontWeight: FontWeight.w700, color: Color(0xFF00FF9F), letterSpacing: 2),
+          headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xFF00FF9F)),
+          bodyLarge: TextStyle(fontSize: 18, color: Color(0xFF00FF9F), letterSpacing: 1.5),
+          bodyMedium: TextStyle(fontSize: 16, color: Color(0xFF00FF9F)),
         ),
         cardTheme: CardTheme(
-          color: const Color(0xFF1A1F2E),
-          elevation: 8,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          color: const Color(0xFF111111),
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          side: BorderSide(color: Color(0xFF00FF9F).withOpacity(0.4), width: 1),
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black,
           elevation: 0,
           centerTitle: true,
         ),
@@ -56,7 +57,6 @@ class FlightWallApp extends StatelessWidget {
   }
 }
 
-// Simple state management for current flight
 class FlightProvider extends ChangeNotifier {
   Flight? _currentFlight;
   bool _isLoading = false;
@@ -68,18 +68,15 @@ class FlightProvider extends ChangeNotifier {
 
   Future<void> searchFlight(String flightNumber) async {
     if (flightNumber.trim().isEmpty) return;
-
     _isLoading = true;
     notifyListeners();
-
     try {
       final flight = await _service.getFlightByNumber(flightNumber.trim());
       _currentFlight = flight;
     } catch (e) {
-      debugPrint('Error fetching flight: $e');
+      debugPrint('Error: $e');
       _currentFlight = null;
     }
-
     _isLoading = false;
     notifyListeners();
   }
