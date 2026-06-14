@@ -1,12 +1,7 @@
 {
-  "name": "Flutter Development",
+  "name": "Flutter Web",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "ghcr.io/devcontainers/features/flutter:1": {
-      "version": "stable"
-    }
-  },
-  "postCreateCommand": "flutter config --enable-web && flutter --version",
+  "postCreateCommand": "curl -fsSL https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.2-stable.tar.xz | tar -xJ -C /home/codespace && echo 'export PATH=\"/home/codespace/flutter/bin:\$PATH\"' >> ~/.bashrc && source ~/.bashrc && flutter --version",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -15,11 +10,5 @@
       ]
     }
   },
-  "forwardPorts": [8080],
-  "portsAttributes": {
-    "8080": {
-      "label": "Flutter Web App",
-      "onAutoForward": "openPreview"
-    }
-  }
+  "forwardPorts": [8080]
 }
